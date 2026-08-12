@@ -1,0 +1,140 @@
+/* Recipes Listing Page */
+
+.recipes-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 24px;
+
+  @media (max-width: 1024px) {
+    padding: 32px 20px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 24px 16px;
+  }
+}
+
+.recipes-header {
+  text-align: center;
+  margin-bottom: 48px;
+
+  h1 {
+    margin: 0 0 16px 0;
+    font-size: 56px;
+    font-weight: 700;
+  }
+
+  p {
+    margin: 0;
+    font-size: 20px;
+    color: rgb(100, 100, 100);
+  }
+
+  @media (max-width: 768px) {
+    margin-bottom: 32px;
+
+    h1 {
+      font-size: 40px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+  }
+}
+
+.recipes-content {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 40px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 160px 1fr;
+    gap: 32px;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+/* Sidebar */
+.recipes-sidebar {
+  h3 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  @media (max-width: 768px) {
+    order: -1;
+  }
+}
+
+.category-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  a {
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    color: inherit;
+
+    &:hover {
+      background-color: rgb(240, 240, 240);
+    }
+
+    &.active {
+      background-color: rgb(0, 0, 0);
+      color: rgb(255, 255, 255);
+      font-weight: 600;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    a {
+      padding: 8px 12px;
+      font-size: 14px;
+    }
+  }
+}
+
+/* Main content */
+.recipes-main {
+  min-height: 500px;
+}
+
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+
+.no-recipes {
+  padding: 48px 24px;
+  text-align: center;
+  color: rgb(100, 100, 100);
+
+  p {
+    margin: 0;
+    font-size: 18px;
+  }
+}

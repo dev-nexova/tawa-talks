@@ -1,0 +1,92 @@
+/* Ingredients List Component */
+
+.ingredients-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.servings-note {
+  padding: 12px 16px;
+  background-color: rgb(250, 250, 250);
+  border-left: 4px solid rgb(0, 0, 0);
+  border-radius: 4px;
+  font-size: 14px;
+
+  strong {
+    font-weight: 600;
+  }
+}
+
+.ingredients-ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ingredient-item {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgb(250, 250, 250);
+  }
+
+  &.completed {
+    opacity: 0.6;
+
+    .ingredient-name {
+      text-decoration: line-through;
+    }
+  }
+}
+
+.ingredient-checkbox {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+
+  input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: rgb(0, 0, 0);
+  }
+}
+
+.ingredient-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  flex-grow: 1;
+}
+
+.ingredient-name {
+  font-weight: 500;
+  color: rgb(0, 0, 0);
+}
+
+.ingredient-quantity {
+  color: rgb(80, 80, 80);
+  font-weight: 500;
+}
+
+.ingredient-unit {
+  font-size: 13px;
+  color: rgb(100, 100, 100);
+  margin-left: 2px;
+}
+
+.ingredient-notes {
+  font-size: 13px;
+  color: rgb(100, 100, 100);
+  font-style: italic;
+}

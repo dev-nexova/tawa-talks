@@ -27,24 +27,19 @@ export default async function HomePage() {
             width={65}
           />
         </picture>
-        {!user && <h1>Welcome to your new project.</h1>}
-        {user && <h1>Welcome back, {user.email}</h1>}
+        <h1>🍳 Tawa Talks</h1>
+        <p>Discover delicious recipes from our collection</p>
         <div className="links">
+          <a href="/recipes" className="admin">
+            Browse Recipes
+          </a>
           <a
-            className="admin"
+            className="docs"
             href={payloadConfig.routes.admin}
             rel="noopener noreferrer"
             target="_blank"
           >
-            Go to admin panel
-          </a>
-          <a
-            className="docs"
-            href="https://payloadcms.com/docs"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Documentation
+            Admin Panel
           </a>
         </div>
       </div>
