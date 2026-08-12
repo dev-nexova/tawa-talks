@@ -34,12 +34,15 @@ export const Recipes: CollectionConfig = {
       type: 'upload',
       relationTo: 'media',
       required: true,
+      admin: {
+        description: 'Main recipe photo (recommended: 800x600px or wider)',
+      },
     },
     {
       name: 'youtubeUrl',
       type: 'text',
       admin: {
-        description: 'Link to YouTube video (optional)',
+        description: 'YouTube video link (e.g., https://www.youtube.com/watch?v=...)',
       },
     },
 
@@ -47,29 +50,37 @@ export const Recipes: CollectionConfig = {
     {
       name: 'prepTime',
       type: 'number',
+      min: 0,
       admin: {
         description: 'Preparation time in minutes',
+        width: '25%',
       },
     },
     {
       name: 'cookTime',
       type: 'number',
+      min: 0,
       admin: {
         description: 'Cooking time in minutes',
+        width: '25%',
       },
     },
     {
       name: 'totalTime',
       type: 'number',
+      min: 0,
       admin: {
-        description: 'Total time in minutes (or auto-calculated from prep + cook)',
+        description: 'Auto-calculated from prep + cook time. Edit to override.',
+        width: '25%',
       },
     },
     {
       name: 'servings',
       type: 'number',
+      min: 1,
       admin: {
         description: 'Number of servings',
+        width: '25%',
       },
     },
     {
@@ -110,29 +121,55 @@ export const Recipes: CollectionConfig = {
     {
       name: 'ingredients',
       type: 'array',
+      minRows: 1,
+      admin: {
+        description: 'Add all ingredients needed for this recipe',
+      },
       fields: [
         {
           name: 'name',
           type: 'text',
           required: true,
+          admin: {
+            width: '50%',
+          },
         },
         {
           name: 'quantity',
           type: 'text',
           required: true,
+          admin: {
+            width: '25%',
+          },
         },
         {
           name: 'unit',
-          type: 'text',
+          type: 'select',
+          hasMany: false,
+          options: [
+            { label: 'cups', value: 'cups' },
+            { label: 'tsp', value: 'tsp' },
+            { label: 'tbsp', value: 'tbsp' },
+            { label: 'g', value: 'g' },
+            { label: 'kg', value: 'kg' },
+            { label: 'ml', value: 'ml' },
+            { label: 'l', value: 'l' },
+            { label: 'oz', value: 'oz' },
+            { label: 'lb', value: 'lb' },
+            { label: 'piece(s)', value: 'piece(s)' },
+            { label: 'pinch', value: 'pinch' },
+            { label: 'to taste', value: 'to taste' },
+          ],
           admin: {
-            description: 'e.g., cups, tsp, g, ml',
+            width: '25%',
+            description: 'Select a unit or leave blank',
           },
         },
         {
           name: 'notes',
           type: 'text',
           admin: {
-            description: 'Optional notes like "finely chopped"',
+            description: 'e.g., "finely chopped", "melted"',
           },
         },
       ],
@@ -140,26 +177,33 @@ export const Recipes: CollectionConfig = {
     {
       name: 'steps',
       type: 'array',
+      minRows: 1,
+      admin: {
+        description: 'Step-by-step cooking instructions. Numbers are auto-assigned.',
+      },
       fields: [
         {
           name: 'stepNumber',
           type: 'number',
-          required: true,
+          required: false,
           admin: {
-            description: 'Step number (auto-incremented)',
+            hidden: true,
           },
         },
         {
           name: 'instruction',
           type: 'richText',
           required: true,
+          admin: {
+            description: 'Enter the cooking instruction for this step',
+          },
         },
         {
           name: 'image',
           type: 'upload',
           relationTo: 'media',
           admin: {
-            description: 'Optional image for this step',
+            description: 'Upload an optional image showing this step (recommended: 800x600px)',
           },
         },
       ],
@@ -176,33 +220,44 @@ export const Recipes: CollectionConfig = {
     {
       name: 'nutritionInfo',
       type: 'group',
+      admin: {
+        description: 'Optional nutrition facts per serving. Leave blank if not available.',
+      },
       fields: [
         {
           name: 'calories',
           type: 'number',
+          min: 0,
           admin: {
-            description: 'Per serving',
+            description: 'Calories per serving',
+            width: '25%',
           },
         },
         {
           name: 'protein',
           type: 'number',
+          min: 0,
           admin: {
-            description: 'In grams',
+            description: 'Protein in grams',
+            width: '25%',
           },
         },
         {
           name: 'carbs',
           type: 'number',
+          min: 0,
           admin: {
-            description: 'In grams',
+            description: 'Carbohydrates in grams',
+            width: '25%',
           },
         },
         {
           name: 'fat',
           type: 'number',
+          min: 0,
           admin: {
-            description: 'In grams',
+            description: 'Fat in grams',
+            width: '25%',
           },
         },
       ],
@@ -212,19 +267,24 @@ export const Recipes: CollectionConfig = {
     {
       name: 'seo',
       type: 'group',
+      admin: {
+        description: 'Optional SEO metadata for search engines and social sharing',
+      },
       fields: [
         {
           name: 'metaTitle',
           type: 'text',
+          maxLength: 60,
           admin: {
-            description: 'SEO title (recommended 50-60 characters)',
+            description: 'Page title for search results (50-60 chars recommended)',
           },
         },
         {
           name: 'metaDescription',
           type: 'textarea',
+          maxLength: 160,
           admin: {
-            description: 'SEO description (recommended 150-160 characters)',
+            description: 'Meta description for search results (150-160 chars recommended)',
           },
         },
         {
@@ -232,7 +292,7 @@ export const Recipes: CollectionConfig = {
           type: 'upload',
           relationTo: 'media',
           admin: {
-            description: 'Image for social media sharing',
+            description: 'Image for social media sharing (recommended: 1200x630px)',
           },
         },
       ],

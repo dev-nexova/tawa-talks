@@ -194,9 +194,12 @@ export interface Recipe {
    * Short summary for recipe cards and SEO
    */
   description: string;
+  /**
+   * Main recipe photo (recommended: 800x600px or wider)
+   */
   featuredImage: number | Media;
   /**
-   * Link to YouTube video (optional)
+   * YouTube video link (e.g., https://www.youtube.com/watch?v=...)
    */
   youtubeUrl?: string | null;
   /**
@@ -208,7 +211,7 @@ export interface Recipe {
    */
   cookTime?: number | null;
   /**
-   * Total time in minutes (or auto-calculated from prep + cook)
+   * Auto-calculated from prep + cook time. Edit to override.
    */
   totalTime?: number | null;
   /**
@@ -221,27 +224,34 @@ export interface Recipe {
    */
   cuisine?: ('indian' | 'italian' | 'chinese' | 'continental' | 'mexican' | 'thai' | 'japanese' | 'other') | null;
   category: number | Category;
+  /**
+   * Add all ingredients needed for this recipe
+   */
   ingredients?:
     | {
         name: string;
         quantity: string;
         /**
-         * e.g., cups, tsp, g, ml
+         * Select a unit or leave blank
          */
-        unit?: string | null;
+        unit?:
+          ('cups' | 'tsp' | 'tbsp' | 'g' | 'kg' | 'ml' | 'l' | 'oz' | 'lb' | 'piece(s)' | 'pinch' | 'to taste') | null;
         /**
-         * Optional notes like "finely chopped"
+         * e.g., "finely chopped", "melted"
          */
         notes?: string | null;
         id?: string | null;
       }[]
     | null;
+  /**
+   * Step-by-step cooking instructions. Numbers are auto-assigned.
+   */
   steps?:
     | {
+        stepNumber?: number | null;
         /**
-         * Step number (auto-incremented)
+         * Enter the cooking instruction for this step
          */
-        stepNumber: number;
         instruction: {
           root: {
             type: string;
@@ -258,7 +268,7 @@ export interface Recipe {
           [k: string]: unknown;
         };
         /**
-         * Optional image for this step
+         * Upload an optional image showing this step (recommended: 800x600px)
          */
         image?: (number | null) | Media;
         id?: string | null;
@@ -282,35 +292,41 @@ export interface Recipe {
     };
     [k: string]: unknown;
   } | null;
+  /**
+   * Optional nutrition facts per serving. Leave blank if not available.
+   */
   nutritionInfo?: {
     /**
-     * Per serving
+     * Calories per serving
      */
     calories?: number | null;
     /**
-     * In grams
+     * Protein in grams
      */
     protein?: number | null;
     /**
-     * In grams
+     * Carbohydrates in grams
      */
     carbs?: number | null;
     /**
-     * In grams
+     * Fat in grams
      */
     fat?: number | null;
   };
+  /**
+   * Optional SEO metadata for search engines and social sharing
+   */
   seo?: {
     /**
-     * SEO title (recommended 50-60 characters)
+     * Page title for search results (50-60 chars recommended)
      */
     metaTitle?: string | null;
     /**
-     * SEO description (recommended 150-160 characters)
+     * Meta description for search results (150-160 chars recommended)
      */
     metaDescription?: string | null;
     /**
-     * Image for social media sharing
+     * Image for social media sharing (recommended: 1200x630px)
      */
     metaImage?: (number | null) | Media;
   };
