@@ -1,0 +1,119 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+yarn.lock
+pnpm-lock.yaml
+
+# Testing
+/coverage
+/.nyc_output
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+
+# Next.js
+/.next/
+/out/
+/build/
+*.rsc
+next-env.d.ts
+.payload-types.ts
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.test
+.test.env
+
+# IDE
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode specific
+.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# EditorConfig
+.editorconfig
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+.AppleDouble
+.LSOverride
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+
+# Build outputs
+dist/
+build/
+
+# Cache
+.cache/
+.eslintcache
+.turbo/
+turbo.json
+.pytest_cache/
+.vite/
+.vitest/
+
+# Misc
+*~
+*.tmp
+.bundle/
+*.rbc
+*.gem
+.ruby-version
+.ruby-gemset
+
+# Claude Code
+.claude/
+.claude.config.json
+
+# Payload CMS
+.payload/
+.payload-types.ts
+
+# Runtime
+.next-env
+*.pid
+*.seed
+*.seed.*
+
+# Temporary files
+tmp/
+temp/
+*.json
+*.md
+*.env
