@@ -69,6 +69,8 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    categories: Category;
+    recipes: Recipe;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +80,8 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    recipes: RecipesSelect<false> | RecipesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -163,6 +167,163 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: number;
+  name: string;
+  /**
+   * Auto-generated from name, but can be edited
+   */
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "recipes".
+ */
+export interface Recipe {
+  id: number;
+  title: string;
+  /**
+   * Auto-generated from title, but can be edited
+   */
+  slug: string;
+  /**
+   * Short summary for recipe cards and SEO
+   */
+  description: string;
+  featuredImage: number | Media;
+  /**
+   * Link to YouTube video (optional)
+   */
+  youtubeUrl?: string | null;
+  /**
+   * Preparation time in minutes
+   */
+  prepTime?: number | null;
+  /**
+   * Cooking time in minutes
+   */
+  cookTime?: number | null;
+  /**
+   * Total time in minutes (or auto-calculated from prep + cook)
+   */
+  totalTime?: number | null;
+  /**
+   * Number of servings
+   */
+  servings?: number | null;
+  difficulty?: ('easy' | 'medium' | 'hard') | null;
+  /**
+   * Cuisine type for the recipe
+   */
+  cuisine?: ('indian' | 'italian' | 'chinese' | 'continental' | 'mexican' | 'thai' | 'japanese' | 'other') | null;
+  category: number | Category;
+  ingredients?:
+    | {
+        name: string;
+        quantity: string;
+        /**
+         * e.g., cups, tsp, g, ml
+         */
+        unit?: string | null;
+        /**
+         * Optional notes like "finely chopped"
+         */
+        notes?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  steps?:
+    | {
+        /**
+         * Step number (auto-incremented)
+         */
+        stepNumber: number;
+        instruction: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        /**
+         * Optional image for this step
+         */
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Tips, substitutions, storage instructions, etc.
+   */
+  notes?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  nutritionInfo?: {
+    /**
+     * Per serving
+     */
+    calories?: number | null;
+    /**
+     * In grams
+     */
+    protein?: number | null;
+    /**
+     * In grams
+     */
+    carbs?: number | null;
+    /**
+     * In grams
+     */
+    fat?: number | null;
+  };
+  seo?: {
+    /**
+     * SEO title (recommended 50-60 characters)
+     */
+    metaTitle?: string | null;
+    /**
+     * SEO description (recommended 150-160 characters)
+     */
+    metaDescription?: string | null;
+    /**
+     * Image for social media sharing
+     */
+    metaImage?: (number | null) | Media;
+  };
+  status?: ('draft' | 'published') | null;
+  /**
+   * Date when the recipe was published
+   */
+  publishedDate?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -192,6 +353,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'categories';
+        value: number | Category;
+      } | null)
+    | ({
+        relationTo: 'recipes';
+        value: number | Recipe;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -274,6 +443,71 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "recipes_select".
+ */
+export interface RecipesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  description?: T;
+  featuredImage?: T;
+  youtubeUrl?: T;
+  prepTime?: T;
+  cookTime?: T;
+  totalTime?: T;
+  servings?: T;
+  difficulty?: T;
+  cuisine?: T;
+  category?: T;
+  ingredients?:
+    | T
+    | {
+        name?: T;
+        quantity?: T;
+        unit?: T;
+        notes?: T;
+        id?: T;
+      };
+  steps?:
+    | T
+    | {
+        stepNumber?: T;
+        instruction?: T;
+        image?: T;
+        id?: T;
+      };
+  notes?: T;
+  nutritionInfo?:
+    | T
+    | {
+        calories?: T;
+        protein?: T;
+        carbs?: T;
+        fat?: T;
+      };
+  seo?:
+    | T
+    | {
+        metaTitle?: T;
+        metaDescription?: T;
+        metaImage?: T;
+      };
+  status?: T;
+  publishedDate?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
